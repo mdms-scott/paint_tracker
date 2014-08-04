@@ -1,0 +1,11 @@
+.container-fluid
+  .row
+    .col-sm-12
+      %h1= @mini.name
+      %h2= "Points: #{@mini.points}"
+      - if current_user == @mini.user
+        = link_to "Edit/Upload More Photos", edit_mini_path(@mini), :class => 'btn btn-primary btn-lg'
+  .row{:style => 'margin-top: 20px;'}
+    - @mini.photos.each do |photo|
+      .photo_container{:style => 'float: left; margin: 5px;'}
+        = link_to image_tag(photo.image.url(:medium)), photo.image.url

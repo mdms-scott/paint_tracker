@@ -1,0 +1,10 @@
+.container-fluid
+  .row
+    .col-sm-12
+      %h1= @user.email
+      %h2= "Points: #{@user.point_total}"
+  .row
+    - @user.minis.each do |mini|
+      - mini.photos.each do |photo|
+        .mini_container{:style => 'float: left; margin: 5px;'}
+          = link_to image_tag(mini.photos.last.image.url(:medium)), mini_path(mini)

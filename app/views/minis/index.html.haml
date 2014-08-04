@@ -1,0 +1,7 @@
+.container-fluid
+  .row
+    .col-sm-12
+      - @minis.each do |mini|
+        .mini_container{:style => 'float: left; margin: 5px;'}
+          = link_to image_tag(mini.photos.last.image.url(:medium)), mini_path(mini)
+  = will_paginate @minis

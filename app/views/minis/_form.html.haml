@@ -1,0 +1,33 @@
+.container
+  .row
+    .col-md-2
+    .col-md-8
+      = nested_form_for @mini, :html => {:role => 'form', :class => 'form-horizontal'} do |f|
+        = label_tag :attributes
+        = f.hidden_field :user_id, :value => current_user.id
+        .form-group
+          = f.label :name, :class => 'col-sm-2 control-label'
+          .col-sm-10
+            = f.text_field :name, :class => 'form-control'
+        .form-group
+          = f.label :points, :class => 'col-sm-2 control-label'
+          .col-sm-10
+            = f.text_field :points, :class => 'form-control', :style => 'width: 100px;'
+        = label_tag :images
+        #photos_grouping
+          = f.fields_for :photos do |photo_form|
+            .form-group
+              .col-sm-2
+                = image_tag(photo_form.object.image.url(:thumb), :style => 'float:right;') unless photo_form.object.new_record?
+              .col-sm-10{:style => 'padding-top:5px;'}
+                = photo_form.file_field :image
+                = photo_form.link_to_remove "Remove"
+        .form-group
+          .col-sm-2
+          .col-sm-10
+            = f.link_to_add "Add a photo", :photos, :data => {:target => '#photos_grouping'}
+        .form-group
+          .col-sm-12
+            .right{:style => 'float: right;margin-left:10px;'}= f.submit "Submit", :class => 'btn btn-primary btn-lg'
+            .right{:style => 'float: right;'}= link_to "Cancel", :back, :class => 'btn btn-default btn-lg'
+    .col-md-2
